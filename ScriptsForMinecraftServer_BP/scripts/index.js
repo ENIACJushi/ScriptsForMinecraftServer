@@ -1,12 +1,16 @@
 import { GameMode, Player, system, world, ScriptEventCommandMessageAfterEvent } from "@minecraft/server";
 import * as Tool from "./libs/Tools"
-import * as Clean from "./doge/Clean"
+
 import * as Fly from "./doge/Fly"
 import * as AFK from "./doge/AFK";
+import * as Clean from "./doge/Clean"
 import * as Peace from "./doge/Peace";
-import { Menu } from "./doge/Menu";
-import { FormShop } from "./doge/FormShop";
 import { QAManager } from "./doge/QA";
+import * as EntityControl from "./doge/EntityControl"
+
+// import { Menu } from "./doge/Menu";
+// import { FormShop } from "./doge/FormShop";
+
 import "./core/index";
 
 // Script Event
