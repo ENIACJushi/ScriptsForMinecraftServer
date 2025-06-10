@@ -1,3 +1,4 @@
 .AddCompLib/*
 *.zip
 /.idea/
+/node_modules/

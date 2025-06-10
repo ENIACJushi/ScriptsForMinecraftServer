@@ -1,5 +1,5 @@
 export const Config = {
-    ITEMMAX: 110, // 掉落物清理阈值
+    ITEMMAX: 192, // 掉落物清理阈值
     
     flyArea: [ // 生存飞行区
         {
@@ -18,6 +18,6 @@ export const Config = {
     ],
 
     AFKTime: 120, // AFK等待时间 秒,
-    QAInterval: [300, 360], // 从一题结束到下一题开始的时间区间（秒）
+    QAInterval: [600, 720], // 从一题结束到下一题开始的时间区间（秒）
     QATimeout: 60           // 答题限时
 }
