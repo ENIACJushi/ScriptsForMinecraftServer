@@ -31,7 +31,7 @@ export class Command{
     static trigger(player, message){
         let commandInfo = this.list[message];
         if(commandInfo !== undefined){
-            if(Permission.getPermission(player) >= commandInfo.permission){
+            if(player===undefined || Permission.getPermission(player) >= commandInfo.permission){// 无执行者，最高权限
                 system.run(()=>{
                     let result = commandInfo.callback(player);
                     if(result !== undefined){
@@ -70,7 +70,7 @@ export class Command{
 
     static registerScriptEvent(){
         system.afterEvents.scriptEventReceive.subscribe((event)=>{
-            if(event.sourceEntity===undefined) return;
+            // if(event.sourceEntity===undefined) return; // 无执行者，最高权限
             this.trigger(event.sourceEntity, event.id.substring(5));
         }, {"namespaces": ["doge"]})
     }

@@ -1,5 +1,5 @@
 export const Config = {
-    ITEMMAX: 100, // 掉落物清理阈值
+    ITEMMAX: 110, // 掉落物清理阈值
     
     flyArea: [ // 生存飞行区
         {
