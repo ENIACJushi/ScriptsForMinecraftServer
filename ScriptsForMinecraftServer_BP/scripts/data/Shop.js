@@ -1,3 +1,6 @@
+/**
+ * 表单商店数据
+ */
 export const shopData = [
 {
     "name": "买入",

@@ -1,7 +1,11 @@
+/**
+ * 其他设置
+ */
 export const Config = {
-    ITEMMAX: 192, // 掉落物清理阈值
-    
-    flyArea: [ // 生存飞行区
+    // 掉落物清理阈值
+    ITEMMAX: 192,
+    // 生存飞行区
+    flyArea: [
         {
             "name": "",
             "dimension": "minecraft:overworld",
@@ -9,15 +13,17 @@ export const Config = {
             "end": [4604, 5628]
         }
     ],
-    peaceArea: [ // 和平区域
+    // 和平区域
+    peaceArea: [
         {
             "dimension": "minecraft:overworld",
             "start": [951, -2715],
             "end": [4604, 5628]
         }
     ],
-
-    AFKTime: 120, // AFK等待时间 秒,
+    // AFK等待时间 秒
+    AFKTime: 120,
+    // 答题设置
     QAInterval: [600, 720], // 从一题结束到下一题开始的时间区间（秒）
     QATimeout: 60           // 答题限时
 }
