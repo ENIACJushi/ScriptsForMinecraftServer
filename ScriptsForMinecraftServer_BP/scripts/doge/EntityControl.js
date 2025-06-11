@@ -19,16 +19,17 @@ import * as MCUI from "@minecraft/server-ui";
 export function entityClean(player){
   let m = new Map();
   // 统计数量
-  for(let entity of player.dimension.getEntities({"excludeTypes": ["player"]})){
+  for (let entity of player.dimension.getEntities({"excludeTypes": ["player"]})) {
     let amount = m.get(entity.typeId);
-    if(amount === undefined){
+    if (amount === undefined) {
       m.set(entity.typeId, 1);
-    }
-    else{
+    } else{
       m.set(entity.typeId, amount + 1);
     }
   }
-  if(m.size === 0) return;
+  if (m.size === 0) {
+    return;
+  }
 
   // 排序
   let arr = Array.from(m);
@@ -39,7 +40,7 @@ export function entityClean(player){
   // 发送表单
   const form = new MCUI.ActionFormData();
   form.title("实体列表");
-  for(let data of arr){
+  for (let data of arr) {
     form.button(`${data[1]} | ${data[0]}`);
   }
   // 清除
@@ -65,7 +66,6 @@ export function entityClean(player){
         case 2: player.runCommand(`tp @s @e[c=1,type=${arr[response.selection][0]}]`); break;
       }
     });
-
   });
 }
 /**

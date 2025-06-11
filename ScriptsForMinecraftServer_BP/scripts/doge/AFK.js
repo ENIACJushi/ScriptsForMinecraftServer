@@ -8,11 +8,13 @@
 
 import { Player, system, world } from "@minecraft/server";
 import { Config } from "../data/Config";
-import { Command } from "../core/Command";
-import { Permission } from "../core/Permission";
+import {
+  Command,
+  Permission,
+} from "../core/main";
 
 // 初始化
-for(let player of world.getAllPlayers()){
+for(let player of world.getAllPlayers()) {
   reset(player);
 }
 /**
@@ -38,12 +40,12 @@ export function setAFK(player){
   player.addTag("AFK");
 }
 
-function locationMoved(lastLoaction, nowLocation){
-  let deltaX = lastLoaction.x - nowLocation.x;
+function locationMoved(lastLocation, nowLocation){
+  let deltaX = lastLocation.x - nowLocation.x;
   if(-1 < deltaX && deltaX < 1){
-    let deltaY = lastLoaction.y - nowLocation.y;
+    let deltaY = lastLocation.y - nowLocation.y;
     if(-1 < deltaY && deltaY < 1){
-      let deltaZ = lastLoaction.z - nowLocation.z;
+      let deltaZ = lastLocation.z - nowLocation.z;
       if(-1 < deltaZ && deltaZ < 1){
         return false;
       }
@@ -53,70 +55,66 @@ function locationMoved(lastLoaction, nowLocation){
 }
 
 // 15秒一次全体玩家的位置扫描
-const STEPTIME = 15;
+const STEP_TIME = 15;
 system.runInterval(()=>{
-  for(let player of world.getPlayers({"excludeTags": ["AFK", "NOAFK"]})){
-
+  for (let player of world.getPlayers({"excludeTags": ["AFK", "NOAFK"]})) {
     let lastLoaction = player.getDynamicProperty("afk:last_location");
     let nowLocation = player.location;
 
-    if(lastLoaction !== undefined){
+    if (lastLoaction !== undefined) {
       let nowStep = player.getDynamicProperty("afk:step");
       if(!locationMoved(lastLoaction, nowLocation)){
         // 位置没有改变，步数增加
         if(nowStep===undefined){
           nowStep = 1;
-        }
-        else{
+        } else {
           nowStep ++;
         }
 
         // 判断是否满足AFK条件
-        if(nowStep*STEPTIME >= Config.AFKTime){
+        if(nowStep*STEP_TIME >= Config.AFKTime){
           // 满足
           setAFK(player)
-        }
-        else{
+        } else {
           player.setDynamicProperty("afk:step", nowStep);
         }
-      }
-      else{
+      } else {
         player.setDynamicProperty("afk:step", 0);
       }
     }
-
     player.setDynamicProperty("afk:last_location", nowLocation);
   }
-}, STEPTIME*20);
+}, STEP_TIME*20);
 
 // 5秒一次AFK玩家的位置扫描
 var intervalId = undefined;
 var playerList = {}; // [{pl:Player, location:{x,y,z}}]
 function startAFKScan(){
-  if(intervalId === undefined){
-    intervalId = system.runInterval(()=>{
-      let count = 0;
-      for(let id in playerList){
-        let player = world.getEntity(id);
-        if(player === undefined){
-          delete playerList.id;
-        }
-        else{
-          if(locationMoved(playerList[id], player.location)){
-            world.sendMessage(`§7* ${player.nameTag} is no longer AFK. *`);
-            player.removeTag("AFK");
-            player.setDynamicProperty("afk:last_location", player.location);
-            player.setDynamicProperty("afk:step", 0);
-            delete playerList[id]
-          }
-          else{
-            count ++;
-          }
+  if (intervalId !== undefined) {
+    return;
+  }
+  intervalId = system.runInterval(()=>{
+    let count = 0;
+    for (let id in playerList) {
+      let player = world.getEntity(id);
+      if (player === undefined) {
+        delete playerList.id;
+      } else {
+        if (locationMoved(playerList[id], player.location)) {
+          world.sendMessage(`§7* ${player.nameTag} is no longer AFK. *`);
+          player.removeTag("AFK");
+          player.setDynamicProperty("afk:last_location", player.location);
+          player.setDynamicProperty("afk:step", 0);
+          delete playerList[id];
+        } else {
+          count ++;
         }
       }
-      if(count === 0) stopAFKScan();
-    }, 100);
-  }
+    }
+    if (count === 0) {
+      stopAFKScan();
+    }
+  }, 100);
 }
 
 function stopAFKScan(){
@@ -126,7 +124,7 @@ function stopAFKScan(){
 
 function registerCommand(){
   Command.register("afk", Permission.Any, setAFK, "进入AFK状态");
-  Command.register("noafk", Permission.OP, (pl)=>{
+  Command.register("noafk", Permission.OP, (pl)=> {
     pl.addTag("NOAFK");
   }, "令玩家不会进入AFK状态");
 }

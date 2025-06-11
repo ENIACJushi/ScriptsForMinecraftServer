@@ -7,5 +7,5 @@
 // 2  脚本指定的 OP
 
 export const data = {
-    "CommetWind": 2
+  "CommetWind": 2
 }

@@ -34,7 +34,7 @@ export class Money {
    * @param {Player} pl
    * @param {number} money
    */
-  static add(pl, money){
+  static add(pl, money) {
     return this.set(pl, this.get(pl) + money);
   }
 

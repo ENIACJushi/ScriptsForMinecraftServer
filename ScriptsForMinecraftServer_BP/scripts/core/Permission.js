@@ -10,28 +10,23 @@ export class Permission{
   /**
    *
    * @param {Player} player
-   * @returns {Permission}
+   * @returns {number}
    */
   static getPermission(player){
-    if(data[player.name] !== undefined){
+    if (data[player.name] !== undefined) {
       return data[player.name];
     }
-    else{
-      if(player.isOp()){
-        return this.OP;
-      }
-      else{
-        return this.Any;
-      }
+    if(player.isOp()){
+      return this.OP;
     }
-
+    return this.Any;
   }
   /**
    * TODO: 因为脚本无法保存数据，tag/动态属性存储不稳定，这个函数没有作用
    * @param {Player} player
    * @param {Permission} permission
    */
-  static setPermission(player, permission){
+  static setPermission(player, permission) {
 
   }
 }
