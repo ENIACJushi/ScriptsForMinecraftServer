@@ -11,11 +11,13 @@ import * as Fly from "./doge/Fly";
 import * as AFK from "./doge/AFK";
 import {SpawnProtect} from "./doge/SpawnProtect";
 import {Clean} from "./doge/Clean";
+import {Peace} from "./doge/Peace";
 
 export class AddOnInit {
   static init() {
     this.registerEvents();
     this.createTasks();
+    Peace.getInstance().init();
   }
 
   static registerEvents() {
