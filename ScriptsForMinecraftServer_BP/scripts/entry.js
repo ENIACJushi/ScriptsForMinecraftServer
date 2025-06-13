@@ -9,6 +9,8 @@ import {
 import {QAManager} from "./doge/QA";
 import * as Fly from "./doge/Fly";
 import * as AFK from "./doge/AFK";
+import {SpawnProtect} from "./doge/SpawnProtect";
+import {Clean} from "./doge/Clean";
 
 export class AddOnInit {
   static init() {
@@ -17,6 +19,7 @@ export class AddOnInit {
   }
 
   static registerEvents() {
+    SpawnProtect.registerEvents();
     world.beforeEvents.chatSend.subscribe((event)=>{
       let firstChar = event.message.substring(0, 1);
       if(firstChar === "!" || firstChar === "！"){
@@ -29,6 +32,7 @@ export class AddOnInit {
     world.afterEvents.worldInitialize.subscribe(()=>{
       Money.initScoreboard();
       Command.registerHelpCommand();
+      Clean.getInstance().init();
     });
 
     world.afterEvents.playerSpawn.subscribe(event => {
