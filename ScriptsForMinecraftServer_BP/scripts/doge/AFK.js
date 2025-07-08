@@ -13,9 +13,11 @@ import {
   Permission,
 } from "../core/main";
 
-// 初始化
-for(let player of world.getAllPlayers()) {
-  reset(player);
+export function init() {
+  // 初始化
+  for(let player of world.getAllPlayers()) {
+    reset(player);
+  }
 }
 /**
  * 清除相关动态属性和标签

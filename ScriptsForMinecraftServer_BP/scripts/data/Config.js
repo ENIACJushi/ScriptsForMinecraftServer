@@ -37,7 +37,7 @@ export const Config = {
       face: -1, // 箱子面朝的方向，direction为x/z时，[箱子面前的方块的x/z轴坐标] 等于 [箱子的x/z轴坐标]+[face的值]
       // 直接清除的物品种类
       killList: [
-        'grass'
+        'shitcraft:shit'
       ]
     }
   }

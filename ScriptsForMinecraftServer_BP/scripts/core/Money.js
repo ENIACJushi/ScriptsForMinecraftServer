@@ -49,4 +49,3 @@ export class Money {
   }
 }
 
-Money.initScoreboard();
