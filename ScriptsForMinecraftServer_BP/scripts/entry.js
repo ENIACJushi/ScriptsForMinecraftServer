@@ -24,6 +24,9 @@ export class AddOnInit {
   static registerEvents() {
     ShitMountain.cancelChat();
     SpawnProtect.registerEvents();
+    world.afterEvents.dataDrivenEntityTrigger.subscribe((ev) => {
+      console.log(ev.eventId)
+    })
     world.beforeEvents.chatSend.subscribe((event)=>{
       let firstChar = event.message.substring(0, 1);
       if (firstChar === "!" || firstChar === "！") {
